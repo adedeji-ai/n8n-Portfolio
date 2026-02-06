@@ -40,7 +40,7 @@ My mission is simple: make automation save time, not waste it.
 
 ## 💼 Why Work With Me
 
-**I don't just automate—I solve business problems.**
+**I don't just automate, I solve business problems.**
 
 Most automation experts focus on tools. I focus on outcomes. Before building anything, I analyze your processes to find what's actually slowing you down, then automate only what makes sense.
 
@@ -52,9 +52,9 @@ Most automation experts focus on tools. I focus on outcomes. Before building any
 
 **Why Clients Choose Me:**
 
-You need someone who understands both the tech *and* your business. I don't sell you features you don't need. I build automation that directly impacts your bottom line—more closed deals, happier customers, and teams focused on growth instead of repetitive tasks.
+You need someone who understands both the tech *and* your business. I don't sell you features you don't need. I build automation that directly impacts your bottom line more, closed deals, happier customers, and teams focused on growth instead of repetitive tasks.
 
-Every project includes clear documentation, proper error handling, and ongoing support. You're not just getting workflows—you're getting a system that actually works for your business.
+Every project includes clear documentation, proper error handling, and ongoing support. You're not just getting workflows, you're getting a system that actually works for your business.
 
 **The difference?** I make automation simple, reliable, and profitable.
 
