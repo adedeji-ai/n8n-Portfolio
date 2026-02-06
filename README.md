@@ -10,37 +10,31 @@ My mission is simple: make automation saves time, not waste it.
 
 ## 💼 Core Services
 
+### Sales & Marketing Systems
+- Lead capture workflows that qualify and route prospects automatically
+- AI-driven lead scoring based on your ideal customer profile
+- Seamless CRM integrations that keep your data in sync
+- Automated follow-up sequences for prospects and clients
+- Digital proposal and contract generation
+- Smart territory and lead distribution for sales teams
 
-**Sales & Marketing Systems**
+### Financial Workflows
+- Automated invoice creation and delivery
+- Payment tracking and intelligent reminder sequences
+- Two-way sync with accounting platforms (QuickBooks, Xero, etc.)
+- Real-time revenue dashboards and financial reporting
 
-Lead capture workflows that qualify and route prospects automatically
-AI-driven lead scoring based on your ideal customer profile
-Seamless CRM integrations that keep your data in sync
-Automated follow-up sequences for prospects and clients
-Digital proposal and contract generation
-Smart territory and lead distribution for sales teams
+### Customer Success Operations
+- Omnichannel support ticket automation across email, chat, and phone
+- Intelligent ticket routing based on issue type and team capacity
+- Automated check-ins, renewals, and retention campaigns
+- Personalized client communication at scale
 
-**Financial Workflows**
-
-*Automated invoice creation and delivery*
-Payment tracking and intelligent reminder sequences
-Two-way sync with accounting platforms (QuickBooks, Xero, etc.)
-Real-time revenue dashboards and financial reporting
-
-**Customer Success Operations**
-
-Omnichannel support ticket automation across email, chat, and phone
-Intelligent ticket routing based on issue type and team capacity
-Automated check-ins, renewals, and retention campaigns
-Personalized client communication at scale
-
-**Internal Process Optimization**
-
-Project management workflows that update across platforms
-Dynamic team workload balancing and task assignment
-Automated document creation, approval flows, and cloud storage
-Custom reporting dashboards that pull from multiple data sources
-Custom reporting dashboards that pull from multiple data sources 
+### Internal Process Optimization
+- Project management workflows that update across platforms
+- Dynamic team workload balancing and task assignment
+- Automated document creation, approval flows, and cloud storage
+- Custom reporting dashboards that pull from multiple data sources
 
 ---
 
