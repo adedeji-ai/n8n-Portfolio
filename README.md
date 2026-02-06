@@ -1,10 +1,10 @@
 # About Me
 
-I am Adedeji — An AI Automation Engineer and n8n Expert specializing in building production-ready, scalable automation systems for B2B teams, agencies, and SaaS companies
+I am Adedeji — An AI Automation Engineer and n8n Expert specializing in building production-ready, scalable automation systems for B2B teams, agencies, and SaaS companies.
 
-I work extensively with n8n, modern AI models, and third-party APIs to replace manual workflows with intelligent, event-driven systems that reduce operational overhead and increase speed to execution
+I work extensively with n8n, modern AI models, and third-party APIs to replace manual workflows with intelligent, event-driven systems that reduce operational overhead and increase speed to execution.
 
-My mission is simple: make automation saves time, not waste it.
+My mission is simple: make automation save time, not waste it.
 
 ---
 
@@ -38,7 +38,6 @@ My mission is simple: make automation saves time, not waste it.
 
 ---
 
-
 ## 💼 Why Work With Me
 
 **I don't just automate—I solve business problems.**
@@ -46,7 +45,6 @@ My mission is simple: make automation saves time, not waste it.
 Most automation experts focus on tools. I focus on outcomes. Before building anything, I analyze your processes to find what's actually slowing you down, then automate only what makes sense.
 
 **What You Get:**
-
 - **Time Back:** 15+ hours saved per week per workflow
 - **Better Results:** 35%+ increase in lead conversions, 90% faster response times
 - **Zero Mistakes:** Automated processes run error-free, every time
@@ -56,7 +54,7 @@ Most automation experts focus on tools. I focus on outcomes. Before building any
 
 You need someone who understands both the tech *and* your business. I don't sell you features you don't need. I build automation that directly impacts your bottom line—more closed deals, happier customers, and teams focused on growth instead of repetitive tasks.
 
-Every project includes clear documentation, proper error handling, and ongoing support. You're not just getting workflows you're getting a system that actually works for your business.
+Every project includes clear documentation, proper error handling, and ongoing support. You're not just getting workflows—you're getting a system that actually works for your business.
 
 **The difference?** I make automation simple, reliable, and profitable.
 
@@ -65,45 +63,43 @@ Every project includes clear documentation, proper error handling, and ongoing s
 ## 📫 Let's Connect
 
 - **Email**: madedejiai@gmail.com
-- **LinkedIn**: https://www.linkedin.com/in/muhammad-adedeji-7b2200226/
-- **Twitter/X**: @adedeji_ai_
-- **Book a Call**: https://calendly.com/madedejiai/30min
-
-
+- **LinkedIn**: [Muhammad Adedeji](https://www.linkedin.com/in/muhammad-adedeji-7b2200226/)
+- **Twitter/X**: [@adedeji_ai_](https://twitter.com/adedeji_ai_)
+- **Book a Call**: [Schedule 30min](https://calendly.com/madedejiai/30min)
 
 **Available for**: Freelance projects, consulting, and contract work  
 **Response Time**: Within 24 hours
 
 ---
+
 ## 📂 Featured Projects
 
-*(You'll add these as you create them)*
+*(Coming soon as projects are completed)*
 
-### 1. [Project Name Coming Soon]
+### 1. [Project Name]
 Brief description of what it does and the problem it solves.
 
-**Key Results**: X% time saved, Y% increase in conversions, etc.
+**Key Results**: X% time saved, Y% increase in conversions
 
 ---
 
 ## 🛠️ Tech Stack
 
 **Automation Platforms**: n8n  
-**AI/ML**: OpenAI GPT-4, Claude, Whisper flow, Perplexity 
+**AI/ML**: OpenAI GPT-4, Claude, Whisper, Perplexity  
 **Databases**: Airtable, Supabase, Google Sheets  
 **CRM**: HubSpot, Salesforce  
-**Communication**: Slack, WhatsApp, Email e.t.c
+**Communication**: Slack, WhatsApp, Email
 
 ---
 
-
 ## 📊 Portfolio Stats
 
-- 🔄 **X Projects**: Production-ready workflows
+- 🔄 **X Projects**: Production-ready workflows delivered
 - 🤝 **X Clients**: Businesses automated
 - ⏱️ **X Hours**: Saved per week on average
 - 📈 **X% ROI**: Average return on investment
 
 ---
 
-*Last Updated: [Current Month] 2026*
+*Last Updated: February 2026*
