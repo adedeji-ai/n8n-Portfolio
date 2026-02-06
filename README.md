@@ -22,7 +22,7 @@ Smart territory and lead distribution for sales teams
 
 **Financial Workflows**
 
-Automated invoice creation and delivery
+*Automated invoice creation and delivery*
 Payment tracking and intelligent reminder sequences
 Two-way sync with accounting platforms (QuickBooks, Xero, etc.)
 Real-time revenue dashboards and financial reporting
