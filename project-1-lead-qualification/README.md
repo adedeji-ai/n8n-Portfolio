@@ -1,4 +1,4 @@
-# [Project Name] - AI-Driven Lead Research & Enrichment System
+# AI-Driven Lead Research & Enrichment System
 
 ## 📋 Overview
 
@@ -15,11 +15,17 @@
 ## 🎯 Features
 
 - **Apollo.io Integration**: Scrape prospect data like personal and work emails, filters by job titles (CEOs, Founders, Directors), location (European countries and states), industry type, and company URL [file:2]
+
 - **Strict Data Validation**: Filters leads by Company or personal verified work emails, validates company names, Check for LinkedIn Url and removes incomplete records
+
 - **Automated Lead Enrichment**: Fetches detailed Information about person and company through LinkedIn Url
+
 - **AI-Powered Lead Enrichment**: Uses GPT-4o-mini to do detailed research about the Company and gather relevant, specific background information for personalized cold outreach campaigns.
+
 - **HTML REPORT**: generates personalized HTML reports with key insights through the research done by GPT-4o-mini
+
 - **AI-Driven Icebreaker**: generates personalized opening lines or conversation starters for outreach messages.
+
 - **Google Sheets Integration**: Automatically appends qualified leads in sheet
 
 ---
