@@ -1,0 +1,519 @@
+{
+  "name": "My Personal Lead Gen Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api-d7b62b.stack.tryrelevance.com/latest/studios/0dd97dfd-7718-4a8b-aa67-946c40bc4e9a/trigger_webhook",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "project",
+              "value": "c93a9ddb-ca2c-40cf-8634-7c1ae207007a"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_key",
+              "value": "Bearer sk- YOUR API KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "linkedin_url",
+              "value": "={{ $json.linkedinUrl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        576,
+        96
+      ],
+      "id": "402a685a-fff2-4051-ae6e-7450dc4c1414",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1600,
+        96
+      ],
+      "id": "d80d637b-d22d-444a-9a9b-2fe9d8f08bd9",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "74Vx9K75dhS8e6GI",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "New Lead Application",
+        "formDescription": "Input the basic requirement your leads must entail",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "Type",
+              "fieldLabel": "Company Type",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Number ",
+              "fieldLabel": "Number of Leads ",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Location",
+              "fieldLabel": "Location",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Job ",
+              "fieldLabel": "Job Tittle ",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Country",
+              "fieldLabel": "Country",
+              "placeholder": "country of the lead ",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        -400,
+        208
+      ],
+      "id": "7102238e-cfb5-4b6e-b62a-3def45211746",
+      "name": "Input Trigger for Leads",
+      "webhookId": "5d7a2c35-bddc-41eb-824a-bbfaeae12d8f"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bc940047-59a3-4321-a39c-04340a44a075",
+              "name": "Type",
+              "value": "={{ $json.Type }}",
+              "type": "string"
+            },
+            {
+              "id": "94c0463d-3816-409c-a002-686acfaaada0",
+              "name": "Number ",
+              "value": "={{ $json['Number '] }}",
+              "type": "string"
+            },
+            {
+              "id": "10d84bb9-61c6-4e9e-b07c-7258c5f1f5f2",
+              "name": "Location",
+              "value": "={{ $json.Location }}",
+              "type": "string"
+            },
+            {
+              "id": "25232cd3-c315-415f-8e08-3572d0b37876",
+              "name": "Country",
+              "value": "={{ $json.Country }}",
+              "type": "string"
+            },
+            {
+              "id": "8493b304-64a6-4ede-a390-9775916f1af9",
+              "name": "Job ",
+              "value": "={{ $json['Job '] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -144,
+        48
+      ],
+      "id": "2d6b7962-0cfa-4ad9-b8d1-a30232cb0913",
+      "name": "map info"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ------------------------------------\n// GET INPUT DATA FROM PREVIOUS NODE\n// ------------------------------------\nconst inputData = $input.first().json;\n\n// ------------------------------------\n// BUILD QUERY OBJECT FROM INPUT\n// ------------------------------------\nconst query = {\n  location: inputData.Location ? [inputData.Location] : [],\n  business: inputData.Type ? [inputData.Type] : [],\n  job_title: inputData.Job ? [inputData.Job] : [],\n  country: inputData.Country ? [inputData.Country] : []\n};\n\n// ------------------------------------\n// HELPER: Encode Apollo array params\n// ------------------------------------\nconst buildParams = (key, values) =>\n  values.map(v => `${key}[]=${encodeURIComponent(v)}`).join(\"&\");\n\n// ------------------------------------\n// BUILD APOLLO FILTERS\n// ------------------------------------\nconst params = [];\n\nif (query.location?.length) {\n  params.push(buildParams(\"personLocations\", query.location));\n}\nif (query.job_title?.length) {\n  params.push(buildParams(\"personTitles\", query.job_title));\n}\nif (query.business?.length) {\n  params.push(buildParams(\"organizationIndustryTags\", query.business));\n}\nif (query.country?.length) {\n  params.push(buildParams(\"personLocations\", query.country));\n}\n\n// ------------------------------------\n// FINAL APOLLO URL (RAW STRING)\n// ------------------------------------\nconst apolloUrl =\n  \"https://app.apollo.io/#/people?\" + params.join(\"&\");\n\n// ------------------------------------\n// RETURN (URL ONLY AS VALUE)\n// ------------------------------------\nreturn [\n  {\n    url: apolloUrl,\n    type: inputData.Type,\n    number: inputData.Number,\n    location: inputData.Location,\n    country: inputData.Country,\n    job: inputData.Job\n  }\n];\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        272
+      ],
+      "id": "6d714426-ae00-4a28-becd-91eece3617f2",
+      "name": "Create URL - Apollo"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/pipelinelabs~lead-scraper-apollo-zoominfo-lusha-ppe/run-sync-get-dataset-items?token=apify_api_JHUQpKafW90sZX9DeuQMOFG0Cem9pt0H65O7",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"personalEmails\": true,\n  \"workEmails\": true,\n  \"records\":{{ $('map info').item.json['Number '] }} ,\n\n  \"jobTitles\": [\n    \"{{ $('map info').item.json['Job '] }}\"\n  ],\n\n  \"locations\": [\n    {\n      \"country\": \"{{ $('map info').item.json.Country }}\",\n      \"state\": \"{{ $('map info').item.json.Location }}\"\n    }\n  ],\n\n  \"industries\": [\"{{ $('map info').item.json.Type }}\"],\n\n  \"url\": \"{{ $json.url }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        112,
+        96
+      ],
+      "id": "83e0a16b-3b5c-4dc0-b5e8-02f2d8053c81",
+      "name": "Scrape Leads - Apify"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "474d2707-dd76-4341-bb78-6ded15a5813e",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "10bce986-667c-4c3b-b631-afe664c12e5a",
+              "leftValue": "={{ $json.linkedinUrl }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "8118442e-b330-4a84-b8fd-88bb2946769f",
+              "leftValue": "={{ $json.orgCountry }}",
+              "rightValue": "United States",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "6e923938-b5bf-47ff-901f-58035fb7bb1b",
+              "leftValue": "={{ $json.orgWebsite }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        336,
+        96
+      ],
+      "id": "a371f1d9-f3c0-4d9f-86e6-e52dc0d82cd3",
+      "name": "Filter Important Info"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=\nPerson Name: {{ $json['First Name'] }} {{ $json['Last Name'] }}\nCompany: {{ $json['Company Name'] }}\nLocation: {{ $json['Company City'] }}\nDomain: {{ $json.Website }}\n"
+            },
+            {
+              "role": "system",
+              "content": "=You are a research assistant specialized in gathering relevant, specific background information for personalized cold outreach campaigns.\n\nTASK:\nFind unique, noteworthy details that demonstrate genuine research and create natural conversation hooks.\n\nPERSON-SPECIFIC INTEL TO FIND:\n- Recent career moves, promotions, or role changes\n- Published content (articles, LinkedIn posts, podcast appearances, interviews)\n- Speaking engagements, conference presentations, or webinars\n- Awards, recognitions, or notable achievements\n- Educational background if distinctive (specialized programs, certifications)\n- Public social media activity that reveals interests or initiatives they care about\n- Any publicly stated challenges or goals in their role\n\nCOMPANY-SPECIFIC INTEL TO FIND:\n- Recent funding rounds, acquisitions, or major partnerships\n- New product launches or feature releases\n- Expansion into new markets or locations\n- Hiring trends (rapid growth in specific departments)\n- Recent press coverage, company milestones, or announcements\n- Technology stack changes or initiatives (if relevant)\n- Company culture details or values mentioned publicly\n\nFORMATTING REQUIREMENTS:\n- Provide 3-5 specific, actionable insights maximum\n- Include timestamps when relevant (\"announced last month\", \"posted 2 weeks ago\")\n- Cite sources for credibility but keep it brief\n- Flag if information is limited or person/company has minimal online presence\n- Prioritize recent information (last 6 months heavily preferred)\n- Avoid generic information available on basic LinkedIn profiles\n\nOUTPUT FORMAT:\n**Key Insights:**\n1. [Specific, timely detail with context]\n2. [Another unique finding]\n3. [Another unique finding]\n\n**Suggested Opening Hook:** [One sentence suggesting how to reference this in outreach]\n\nAVOID:\n- Generic company descriptions anyone could find\n- Outdated information (older than 12 months unless highly relevant)\n- Assumptions or speculation\n- Information that feels invasive or overly personal"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        768,
+        96
+      ],
+      "id": "7120dde7-9206-42f9-9b1a-8d7fae8ef910",
+      "name": "Research Company and Person",
+      "credentials": {
+        "openAiApi": {
+          "id": "sdPN7PeSJwurJUo4",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        96
+      ],
+      "id": "7e708a85-f85e-4624-9cd6-d9b01b2b1d8f",
+      "name": "Create Report"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1408,
+        256
+      ],
+      "id": "8d430858-a8ce-4698-a7e7-904c7ee0727b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1248,
+        256
+      ],
+      "id": "798eb61d-27ad-4296-9c99-01a20ec997a8",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "sdPN7PeSJwurJUo4",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=INPUT:\n- Company Name: {{ $('Google Sheets Trigger').item.json['Company Name'] }}\n- Background for Icebreaker: {{$json[\"unique_detail\"]}}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a company name normalizer and icebreaker generator for cold outreach emails.\n\nTASK 1: NORMALIZE COMPANY NAME\nTake the official company name and output the casual conversational version:\n- Remove LLC, Inc., Corp., Ltd., etc.\n- Remove colons, slashes, taglines, and descriptive phrases\n- Fix ALL CAPS to proper case\n- Keep ampersands (&) and \"Co.\" when they're part of the core name\n- Output how the company name would be spoken in conversation\n\nTASK 2: CREATE ICEBREAKER\nCreate one natural sentence: \"Love what you're doing with [company], especially [unique thing we noticed]. Wanted to reach out.\"\n\nREQUIREMENTS:\n- Pick the most SURPRISING/INTERESTING detail that makes them unique\n- Keep the \"especially\" part to MAXIMUM 10 words\n- PARAPHRASE in simple, natural language\n- USE VARIED SENTENCE STRUCTURES - mix up your phrasing naturally\n- Focus on what made you think \"oh, that's clever/different\"\n- Write like you're genuinely commenting on something that caught your eye\n- ALWAYS end with \"Wanted to reach out.\"\n- Avoid overused words like \"seamless,\" \"truly,\" \"smart,\" \"really,\" \"the way you\"\n- Avoid generic observations that could apply to any company\n\nSTRUCTURE VARIETY EXAMPLES:\n- \"especially [person's] [quote/philosophy]\"\n- \"especially the [specific approach/strategy]\"\n- \"especially [unique positioning/focus]\"\n- \"especially being [achievement/status]\"\n- \"especially that [surprising detail]\"\n- \"especially [interesting partnership/method]\"\n\nGOOD EXAMPLES (short and specific):\n- \"Love what you're doing with TAG Digital Marketing, especially being one of Google's first platinum agencies. Wanted to reach out.\"\n- \"Love what you're doing with Backroom, especially burning down the old agency model. Wanted to reach out.\"\n- \"Love what you're doing with Glass, especially using blockchain to navigate complex alcohol rules. Wanted to reach out.\"\n- \"Love what you're doing with Consultants, especially the Everything for the Cow approach. Wanted to reach out.\"\n\nBAD EXAMPLES:\n- \"especially the way you combine precise craftsmanship with total project management to make signs that actually drive business\" (TOO LONG - 18 words)\n- \"especially the way you focus on building lasting client relationships\" (GENERIC)\n- \"especially creators who truly fit their vibe\" (USES BANNED WORD \"truly\")\n- \"especially how you're revolutionizing [industry]\" (too vague)\n- \"especially your innovative approach\" (could apply to anyone)\n- \"especially your commitment to excellence\" (meaningless)\n\nTONE: Short, punchy, naturally varied - like you noticed one specific thing that stood out.\n\nGenerate the complete icebreaker sentence.\n\nOUTPUT FORMAT:\nNormalized Company Name: [casual version]\nIcebreaker: Love what you're doing with [company], especially [unique detail in 10 words max]. Wanted to reach out.\n\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.8,
+      "position": [
+        1280,
+        112
+      ],
+      "id": "af1497e9-524b-455e-bb18-740f509d6184",
+      "name": "Icebreaker"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Research Company and Person",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Input Trigger for Leads": {
+      "main": [
+        [
+          {
+            "node": "map info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "map info": {
+      "main": [
+        [
+          {
+            "node": "Create URL - Apollo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create URL - Apollo": {
+      "main": [
+        [
+          {
+            "node": "Scrape Leads - Apify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Leads - Apify": {
+      "main": [
+        [
+          {
+            "node": "Filter Important Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Important Info": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Company and Person": {
+      "main": [
+        [
+          {
+            "node": "Create Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Report": {
+      "main": [
+        [
+          {
+            "node": "Icebreaker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Icebreaker",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Icebreaker",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Icebreaker": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "c3237914-b1ea-4eb2-84d8-49ef1f5c43ba",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f35e1331207325db42cdc9042748d5a9dec530248739f5fd40ec229c46ac08bb"
+  },
+  "id": "GhbQXTTfmP3eZqsk",
+  "tags": []
+}
