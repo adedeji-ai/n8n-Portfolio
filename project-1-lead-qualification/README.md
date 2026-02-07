@@ -10,23 +10,18 @@
 
 **ROI**: 45% average increase in lead conversion through faster response times and better personalization. Typical payback within 30 days.
 
+
 ---
 
 ## 🎯 Features
 
-- **Apollo.io Integration**: Scrape prospect data like personal and work emails, filters by job titles (CEOs, Founders, Directors), location (European countries and states), industry type, and company URL [file:2]
-
-- **Strict Data Validation**: Filters leads by Company or personal verified work emails, validates company names, Check for LinkedIn Url and removes incomplete records
-
-- **Automated Lead Enrichment**: Fetches detailed Information about person and company through LinkedIn Url
-
-- **AI-Powered Lead Enrichment**: Uses GPT-4o-mini to do detailed research about the Company and gather relevant, specific background information for personalized cold outreach campaigns.
-
-- **HTML REPORT**: generates personalized HTML reports with key insights through the research done by GPT-4o-mini
-
-- **AI-Driven Icebreaker**: generates personalized opening lines or conversation starters for outreach messages.
-
-- **Google Sheets Integration**: Automatically appends qualified leads in sheet
+- **Apollo Integration**: Scrapes leads with verified emails, filtering by job titles (CEO, Founder, Director), European locations, industry, and company data
+- **Data Validation**: Filters for verified work emails, validates company names and LinkedIn URLs, removes incomplete records
+- **Lead Enrichment**: Extracts detailed person and company information via LinkedIn
+- **AI Research**: Uses GPT-4o-mini to gather company intelligence for personalized outreach campaigns
+- **HTML Reporting**: Generates personalized insight reports from AI research
+- **AI Icebreakers**: Creates custom opening lines for each prospect
+- **Google Sheets Sync**: Auto-appends qualified leads to spreadsheet in real-time
 
 ---
 
@@ -41,6 +36,7 @@ Before setting up this workflow, you'll need:
     - Apollo.io API key
     - OpenAI API (GPT-4o-mini)
     - Google OAuth2 credentials for Sheets
+    
 
 ---
 
