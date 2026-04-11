@@ -1,0 +1,119 @@
+{
+  "name": "Update Casa di Verona KB",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload documents",
+        "formDescription": "Upload documents to the knowledge base. ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "File",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "923fb3f7-12ee-4e34-b004-b7315bcdb9b7",
+      "name": "On form submission",
+      "webhookId": "3ee1d816-3eb7-4a6d-9fbb-4167fd3146ef"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        192
+      ],
+      "id": "65f96e73-0c49-41b4-8423-90e499c71cd9",
+      "name": "Embeddings OpenAI"
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        208
+      ],
+      "id": "9c46ce1e-edff-4be4-9927-79e3d3bd5a50",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3e26da50-dc96-4221-9401-c0b70db72f10",
+      "name": "Postgres PGVector Store"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "efcde507-8f58-48e0-afc2-eef2244f1df4",
+  "meta": {
+    "instanceId": "f35e1331207325db42cdc9042748d5a9dec530248739f5fd40ec229c46ac08bb"
+  },
+  "id": "HXeobWp4OxCjSlwK",
+  "tags": []
+}

@@ -1,0 +1,234 @@
+{
+  "name": "Casa di Verona Customer Bookings Support",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -176,
+        -80
+      ],
+      "id": "583f0fca-bf99-4163-9888-e9a6e6828a4b",
+      "name": "When chat message received",
+      "webhookId": "53f73c22-dce5-4fd4-b0e6-b9b000e8a213"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        128
+      ],
+      "id": "041af1f7-ca03-4356-b7b0-f52e76944755",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        304
+      ],
+      "id": "09c34753-fbe4-4ba1-be07-d582d966485e",
+      "name": "Embeddings OpenAI"
+    },
+    {
+      "parameters": {
+        "sendTo": "n8ndemos@gmail.com",
+        "subject": "New booking",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        528,
+        176
+      ],
+      "id": "d1bcb995-60fb-4699-9de0-79c3f70611e9",
+      "name": "Make booking",
+      "webhookId": "52f26719-ad94-4e5f-8c9a-edac4aea7d52",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "kbvQnfXd39vsrEDv",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "n8ndemos@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        80
+      ],
+      "id": "d88a3e93-51c4-4679-a57c-e9c331edc90a",
+      "name": "Human Support",
+      "webhookId": "ab1f47b0-87c3-44bc-967f-03dcaec08371",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "kbvQnfXd39vsrEDv",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        128
+      ],
+      "id": "5a7a1441-e742-48da-90b7-794d9657b139",
+      "name": "Postgres Chat Memory"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Use this tool to fetch documents related to the restaurant's knowledge base.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        176,
+        176
+      ],
+      "id": "a767d8f3-0a72-48b4-8652-d95afd85fd5d",
+      "name": "Postgres PGVector Store"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=*Role*\n\nYour name is Sarah, a customer support agent for an Italian restaruant called Casa di Verona.\n\nYou are responsible for providing information about the restaurant using the knowledge base system.\n\nPlese ensure your communication style is friendly and to the point.\n\n**Tools**\n\nWhen a customer want to make a booking follow these steps.\n\nCollect essentials details: customer name, email address, party size, preferred date and time  and any special requests the may have.\n\nLet the customer know their booking request has been submitted to the restaurant and they will receive a confirmation shortly.\n\n\nWhen a customer wants to speak with a real person.\n\nGet their name, email or phone number.\n\nuse the Human Support tool to send their details\nTell them their request was submitted and staff will contact them soon.\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        -80
+      ],
+      "id": "6563a675-8a96-4123-ae4c-0f02a6a9e0c4",
+      "name": "Sarah"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Sarah",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sarah",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Make booking": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sarah",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Human Support": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sarah",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Sarah",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres PGVector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sarah",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "5724e9e7-41c7-4ff8-9da2-8a9d53b39c7a",
+  "meta": {
+    "instanceId": "f35e1331207325db42cdc9042748d5a9dec530248739f5fd40ec229c46ac08bb"
+  },
+  "id": "VM0sCJrv1Vda7MiQ",
+  "tags": []
+}
