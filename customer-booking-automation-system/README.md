@@ -1,6 +1,5 @@
 # Automated Customer Booking Support System
 
----
 
 ## 🎯 Features
 - Multi-Channel Chat Integration - Accepts messages from any platform
