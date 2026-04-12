@@ -1,5 +1,6 @@
 # Automated Customer Booking Support System
 
+An automated n8n workflow for managing customer bookings, handling reservations, sending confirmations, and tracking booking status efficiently.
 
 ## 🎯 Features
 - Multi-Channel Chat Integration - Accepts messages from any platform
@@ -11,6 +12,7 @@
 - Vector Database Knowledge Base - Stores menu, hours, policies
 - Dual AI Architecture - GPT-4 for chat + embeddings for search
 - Real-Time Processing - Instant response and booking confirmation
+- An automated customer bookings, reservation confirmations, client notifications, calendar scheduling, and booking status tracking for service-based businesses.
 
 ---
 
