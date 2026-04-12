@@ -1,17 +1,19 @@
 # Automated Customer Booking Support System
+---
+
 An automated n8n workflow for managing customer bookings, handling reservations, sending confirmations, and tracking booking status efficiently
 ---
 
 ## 🎯 Features
-✅ Multi-Channel Chat Integration - Accepts messages from any platform
-✅ AI Conversational Agent (Sarah) - Natural language booking assistant
-✅ Conversation Memory System - Remembers past interactions
-✅ Smart Query Classification - Routes bookings vs. support questions
-✅ Automated Booking Creation - Direct Gmail reservation system
-✅ Human Support Escalation - Intelligent handoff for complex cases
-✅ Vector Database Knowledge Base - Stores menu, hours, policies
-✅ Dual AI Architecture - GPT-4 for chat + embeddings for search
-✅ Real-Time Processing - Instant response and booking confirmation
+- Multi-Channel Chat Integration - Accepts messages from any platform
+- AI Conversational Agent (Sarah) - Natural language booking assistant
+- Conversation Memory System - Remembers past interactions
+- Smart Query Classification - Routes bookings vs. support questions
+- Automated Booking Creation - Direct Gmail reservation system
+- Human Support Escalation - Intelligent handoff for complex cases
+- Vector Database Knowledge Base - Stores menu, hours, policies
+- Dual AI Architecture - GPT-4 for chat + embeddings for search
+- Real-Time Processing - Instant response and booking confirmation
 
 ---
 
