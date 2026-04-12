@@ -1,7 +1,5 @@
 # Automated Customer Booking Support System
----
 
-An automated n8n workflow for managing customer bookings, handling reservations, sending confirmations, and tracking booking status efficiently
 ---
 
 ## 🎯 Features
