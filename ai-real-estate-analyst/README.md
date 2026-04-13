@@ -778,19 +778,20 @@ Open an issue or submit a PR.
 
 ## 📞 Support & Contact
 
-**Questions or custom automation needs?**
-
-📧 Email: madedejiai@gmail.com
-💼 LinkedIn: https://www.linkedin.com/in/muhammad-adedeji-7b2200226/
-🐦 Twitter: @adedeji_ai_
-
-
 **Available for**:
 - Custom real estate automation workflows
 - API integrations (Zillow, PropertyPro, NPC)
 - AI agent development
 - Portfolio optimization systems
 - Property management automation
+
+**Questions or custom automation needs?**
+
+📧 Email: madedejiai@gmail.com
+
+💼 LinkedIn: https://www.linkedin.com/in/muhammad-adedeji-7b2200226/
+
+🐦 Twitter: @adedeji_ai_
 
 ---
 
