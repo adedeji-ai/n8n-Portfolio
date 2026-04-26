@@ -63,7 +63,7 @@ Every project includes clear documentation, proper error handling, and ongoing s
 ## 📫 Let's Connect
 
 - **Email**: madedejiai@gmail.com
-- **LinkedIn**: [Muhammad Adedeji](https://www.linkedin.com/in/muhammad-adedeji-7b2200226/)
+- **LinkedIn**: [Muhammad Adedeji](https://www.linkedin.com/in/adedejiai/)
 - **Twitter/X**: [@adedeji_ai_](https://twitter.com/adedeji_ai_)
 - **Book a Call**: [Schedule 30min](https://calendly.com/madedejiai/30min)
 
