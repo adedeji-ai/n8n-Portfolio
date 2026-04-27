@@ -1,0 +1,149 @@
+This is a comprehensive, GitHub-ready **README.md** for your portfolio. It is modeled after the high-quality structure of the resume screening example you provided, but tailored specifically to the **ASMR Glass Fruit Video Generator** workflow found in your files.
+
+---
+
+# 💎 AI-Powered ASMR Video Generation & Distribution System
+
+## 📋 Overview
+
+**Problem Solved**: Creating high-quality, viral ASMR content is a multi-hour process involving creative brainstorming, complex prompt engineering for video models, manual video generation, waiting for rendering, and the tedious task of uploading the same file across five different social media platforms. 
+
+**Solution**: A fully autonomous n8n workflow that manages the entire lifecycle of an ASMR brand. The system uses GPT-4o-mini to conceptualize unique "Glass Fruit" ideas (ensuring no duplicates via Google Sheets), generates cinematic 9:16 videos using the state-of-the-art **Google Veo3 (via Fal AI)**, and automatically publishes the finished content to TikTok, YouTube Shorts, Instagram Reels, Facebook, and LinkedIn simultaneously.
+
+**Key Results**:
+- ✅ **100% Autonomous**: Content is ideated, created, and posted without human intervention.
+- ✅ **Cinematic Quality**: Leverages Google’s Veo3 model for hyper-realistic glass textures and fluid physics.
+- ✅ **Omnichannel Presence**: One execution triggers posts on 5 major social platforms.
+- ✅ **Smart Memory**: Prevents content fatigue by checking historical data before generating new ideas.
+- ✅ **Sensory Optimized**: Automatically generates native AI audio for the ultimate ASMR experience.
+
+---
+
+## ✨ Key Features
+
+### 1. **Autonomous Ideation & "Memory"**
+* **Google Sheets Integration**: The workflow reads a database of previously created fruits to ensure variety.
+* **Recursive Brainstorming**: AI analyzes past hits and generates a new, unique "Glass Fruit" concept (e.g., *Glass Dragonfruit*).
+* **Metadata Generation**: Automatically crafts soothing captions and tags for social media SEO.
+
+### 2. **Cinematic Prompt Engineering**
+* **Creative Director Agent**: Uses a specialized LangChain agent to translate a simple fruit name into a 100-word cinematic prompt.
+* **Visual Optimization**: Focuses on translucency, refractive indices of glass, lighting (caustics), and macro-cinematography settings.
+
+### 3. **High-Fidelity Video Production (Fal AI - Veo3)**
+* **Text-to-Video Synthesis**: Utilizes the **Google Veo3** model for high-resolution 9:16 vertical video.
+* **AI Audio Generation**: Enables the `enable_audio` flag to generate satisfying glass-crunching and slicing sounds natively.
+* **Async Request Handling**: Robustly manages the "Wait" period (approx. 4 minutes) while the AI model renders the high-quality video.
+
+### 4. **One-Click Multi-Platform Publishing**
+* **Blotato API Integration**: Automatically handles the heavy lifting of media hosting and API handshakes with social networks.
+* **Simultaneous Distribution**:
+    * **TikTok**: Optimized for the "For You Page" (FYP).
+    * **YouTube Shorts**: High-retention vertical format.
+    * **Instagram Reels**: Targeted at aesthetic/satisfying content niches.
+    * **Facebook & LinkedIn**: Reaching broader and professional audiences.
+
+### 5. **Automated Logging & Reporting**
+* **Database Updates**: Once a video is published, the workflow appends the final video URL and status back to Google Sheets.
+* **Success Tracking**: Maintains a clean record of every video generated for future performance analysis.
+
+---
+
+## 🏗️ Workflow Architecture
+
+
+
+### **Stage 1: Ideation & Concept**
+```
+Schedule Trigger → Get Existing Fruits (Google Sheets)
+       ↓
+AI Agent (Idea Generator) → JSON Output { "object": "Glass Mango", "caption": "..." }
+```
+1. **Trigger**: Runs on a set schedule (e.g., daily at 9:00 AM).
+2. **Memory**: Queries the "History" sheet to pull a list of all fruits used in the last 30 days.
+3. **LLM**: GPT-4o-mini generates a new concept that hasn't been used yet.
+
+### **Stage 2: Production (The Rendering Engine)**
+```
+AI Agent (Prompt Engineer) → Detailed Cinematic Prompt
+       ↓
+HTTP Request (Fal AI) → Initiate Veo3 Generation
+       ↓
+Wait Node (4 Minutes) → Polling for Completion
+       ↓
+HTTP Request (Get Video) → Download Final MP4 URL
+```
+1. **Prompting**: A specialized agent adds "Camera movement: slow zoom," "Lighting: soft studio," and "Material: Translucent Emerald Glass."
+2. **Generation**: The workflow sends a POST request to Fal AI.
+3. **Polling**: The system intelligently waits for the render to finish before proceeding to the next step.
+
+### **Stage 3: Distribution & Storage**
+```
+Upload to Blotato → Media Hosting
+       ↓
+HTTP Post (TikTok, YT, IG, FB, LinkedIn)
+       ↓
+Update Google Sheets → Log Success & Video URL
+```
+1. **Hosting**: Video is moved to Blotato servers to generate a permanent URL.
+2. **Publishing**: 5 parallel/sequential requests are sent to social media endpoints.
+3. **Finalize**: The Google Sheet is updated to mark the fruit as "Used" and store the link.
+
+---
+
+## 📝 Prompt & Data Schema
+
+### **1. Idea Generation Schema**
+The workflow enforces a strict JSON output to ensure stability:
+```json
+{
+  "object": "Glass Starfruit",
+  "caption": "Glass Starfruit ASMR 💎✨",
+  "hashtags": "#asmr #glassfruit #satisfying #veo3"
+}
+```
+
+### **2. Cinematic Prompt Construction**
+The **Generate Prompt Agent** expands the idea into a professional video prompt:
+> *"Macro shot, close up of a Glass Starfruit being sliced by a translucent glass knife. The fruit is made of glowing amber glass with internal seeds visible. High refractive index, caustics, soft studio lighting, 4k, 9:16. Native ASMR sounds of glass clinking and slicing."*
+
+---
+
+## 🚀 Installation & Setup
+
+### **1. n8n Configuration**
+1. Import the `ASMR + Veo3.json` file into your n8n instance.
+2. Ensure you have the **LangChain** nodes installed (default in recent n8n versions).
+
+### **2. API Credentials Required**
+* **OpenAI API**: For the Idea and Prompt agents.
+* **Fal AI API**: Specifically authorized to use the `fal-ai/google/veo3/text-to-video` model.
+* **Blotato API**: For social media orchestration.
+* **Google Cloud**: For Google Sheets and Drive access.
+
+### **3. Environment Variables**
+Configure the following in your n8n credentials:
+- `FAL_AI_KEY`
+- `OPENAI_API_KEY`
+- `BLOTATO_TOKEN`
+- `GOOGLE_SHEET_ID`
+
+---
+
+## 🔧 Customization
+
+* **Change Content Niche**: Modify the System Message in the "Video Idea AI Agent" to generate "Crystal Animals" or "Neon Desserts" instead of Glass Fruit.
+* **Adjust Wait Time**: If using faster models (like Fast-SVD), reduce the **Wait Node** from 4 minutes to 60 seconds.
+* **Add Caption Variations**: Integrate a "Hook Generator" node to create high-engagement captions for TikTok vs. professional captions for LinkedIn.
+
+---
+
+## 🤝 Contact & Portfolio
+
+**Interested in AI Automation?**
+- **LinkedIn**: [Your LinkedIn Link]
+- **Portfolio**: [Your Website Link]
+- **Email**: [Your Email]
+
+---
+⭐ *If you find this workflow useful for your AI Automation journey, please give this repo a star!*
